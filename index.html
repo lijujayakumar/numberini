@@ -2,14 +2,61 @@
 <html>
 
 <head>
-    <title>Page Title</title>
+    <title>Phone Parser</title>
 </head>
 
 <body>
-
-    <h1>This is a Heading</h1>
-    <p>This is a paragraph.</p>
+    <h1>Phone Parser</h1>
+    <div>
+        <label for="input-text">Input Text:</label><br>
+        <textarea id="input-text" rows="50" name="input-text" placeholder="Please enter input text here"
+            style="width: 40%; max-width: 40%;"></textarea>
+    </div>
+    <div>
+        <input type="button" onclick="myFunction()" value="Click Me!">
+    </div>
+    <div>
+        <label for="input-patterns">Patterns:</label><br>
+        <select id="input-patterns" name="patters" size="10" style="width: 10%; max-width: 10%;">
+            <option value="\d{10}"> 10 digit numbers - d{10} </option>
+            <option value="\d{5} \d{5}"> 5 digit SPACE 5 digit - d{5} {d5} </option>
+            <option value="\d{12}"> 12 digit numbers - d{12} </option>
+        </select>
+    </div>
+    <div>
+        <label for="output-text">Result</label><br>
+        <textarea id="output-text" rows="50" name="output-text" placeholder="Click Me will generate result"
+            style="width: 20%; max-width: 20%;"></textarea>
+    </div>
 
 </body>
+<script>
+    function myFunction() {
+        debugger;
+        var inputText = document.querySelector('#input-text').value;
+        var patters = document.querySelector('#input-patterns').options;
+        var output = document.querySelector('#output-text');
+
+        output.value = '';
+        for (let i = 0; i < patters.length; i++) {
+            var pattern = patters[i].value;
+            const regex = new RegExp(pattern, 'gm')
+            let m;
+
+            while ((m = regex.exec(inputText)) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (m.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                }
+
+                // The result can be accessed through the `m`-variable.
+                m.forEach((match, groupIndex) => {
+                    var phone_number = match;
+                    output.value += `${match}` + '\r\n';
+                });
+            }
+        }
+    }
+</script>
 
 </html>
