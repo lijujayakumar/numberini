@@ -2,61 +2,94 @@
 <html>
 
 <head>
-    <title>Phone Parser</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Extract phone numbers from text">
+    <meta name="author" content=`Liju Jayakumar`>
+    <link rel="icon" href="./favicon.png">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Custom styles -->
+    <link href="template.css" rel="stylesheet">
+
+    <!-- Custom code-->
+    <script src="./parser.js"></script>
+
+    <title>Phone Number Parser</title>
+
 </head>
 
 <body>
-    <h1>Phone Parser</h1>
-    <div>
-        <label for="input-text">Input Text:</label><br>
-        <textarea id="input-text" rows="50" name="input-text" placeholder="Please enter input text here"
-            style="width: 40%; max-width: 40%;"></textarea>
-    </div>
-    <div>
-        <input type="button" onclick="myFunction()" value="Click Me!">
-    </div>
-    <div>
-        <label for="input-patterns">Patterns:</label><br>
-        <select id="input-patterns" name="patters" size="10" style="width: 10%; max-width: 10%;">
-            <option value="\d{10}"> 10 digit numbers - d{10} </option>
-            <option value="\d{5} \d{5}"> 5 digit SPACE 5 digit - d{5} {d5} </option>
-            <option value="\d{12}"> 12 digit numbers - d{12} </option>
-        </select>
-    </div>
-    <div>
-        <label for="output-text">Result</label><br>
-        <textarea id="output-text" rows="50" name="output-text" placeholder="Click Me will generate result"
-            style="width: 20%; max-width: 20%;"></textarea>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="#">Phone Number Parser</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="input-text">Input Text</label><br>
+                <textarea id="input-text" rows="40" name="input-text" placeholder="Please enter input text here"
+                    class="fill"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="output-text">Result</label><br>
+                <textarea id="output-text" rows="40" name="output-text" placeholder="Click Me will generate result"
+                    class="fill"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="input-patterns">Patterns</label><br>
+                <select id="input-patterns" name="patters" size="10" class="fill">
+                    <option value="\d{10}"> 10 digits</option>
+                    <option value="\d{5} \d{5}"> 5 SPACE 5</option>
+                    <option value="\d{12}"> 12 digits</option>
+                    <option value="\d{3} d{3} d{4}"> 3 SPACE 3 SPACE 4 </option>
+                    <option value="\d{3}  d{5}"> 5 SPACE SPACE 5 </option>
+                </select>
+            </div>
+            <div class="pull-right">
+                <input type="button" class="btn btn-primary" onclick="myFunction()" value="Click Me!">
+            </div>
+        </div>
     </div>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center"> Copyright &copy;
+                <script>document.write(new Date().getFullYear())</script> Liju Jayakumar, All Rights Reserved
+            </p>
+
+        </div>
+    </footer>
 </body>
-<script>
-    function myFunction() {
-        debugger;
-        var inputText = document.querySelector('#input-text').value;
-        var patters = document.querySelector('#input-patterns').options;
-        var output = document.querySelector('#output-text');
-
-        output.value = '';
-        for (let i = 0; i < patters.length; i++) {
-            var pattern = patters[i].value;
-            const regex = new RegExp(pattern, 'gm')
-            let m;
-
-            while ((m = regex.exec(inputText)) !== null) {
-                // This is necessary to avoid infinite loops with zero-width matches
-                if (m.index === regex.lastIndex) {
-                    regex.lastIndex++;
-                }
-
-                // The result can be accessed through the `m`-variable.
-                m.forEach((match, groupIndex) => {
-                    var phone_number = match;
-                    output.value += `${match}` + '\r\n';
-                });
-            }
-        }
-    }
-</script>
 
 </html>
