@@ -1,6 +1,12 @@
+function clean(inputText) {
+    inputText = inputText.replace(/S/g, "5");
+
+    return inputText;
+}
 
 function myFunction() {
-    var inputText = document.querySelector('#input-text').value;
+
+    var inputText = clean(document.querySelector('#input-text').value);
     var patters = document.querySelector('#input-patterns').options;
     var output = document.querySelector('#output-text');
 
