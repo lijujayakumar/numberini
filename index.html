@@ -60,11 +60,18 @@
             <div class="col-md-6">
                 <label for="input-patterns">Patterns</label><br>
                 <select id="input-patterns" name="patters" size="10" class="fill">
-                    <option value="\d{10}"> 10 digits</option>
+                    <option value="\d{10}"> 10 DIGITS</option>
+                    <option value="\d{12}"> 12 DIGITS</option>
+                    <option value="\d{11}"> 11 DIGITS</option>
+
                     <option value="\d{5} \d{5}"> 5 SPACE 5</option>
-                    <option value="\d{12}"> 12 digits</option>
-                    <option value="\d{3} d{3} d{4}"> 3 SPACE 3 SPACE 4 </option>
-                    <option value="\d{3}  d{5}"> 5 SPACE SPACE 5 </option>
+                    <option value="\d{5}  \d{5}"> 5 SPACE SPACE 5 </option>
+
+                    <option value="\d{3} \d{3} \d{4}"> 3 SPACE 3 SPACE 4 </option>
+
+                    <option value="\d{7} \d{3}"> 7 SPACE 3 </option>
+                    <option value="\d{4} \d{7}"> 4 SPACE 7 (STD) </option>
+
                 </select>
             </div>
             <div class="pull-right">
