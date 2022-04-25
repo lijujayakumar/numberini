@@ -50,12 +50,12 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="input-text">Input Text</label><br>
-                <textarea id="input-text" rows="40" name="input-text" placeholder="Please enter input text here"
+                <textarea id="input-text" rows="40" name="input-text" placeholder="Please paste input text here."
                     class="fill"></textarea>
             </div>
             <div class="col-md-6">
                 <label for="output-text">Result</label><br>
-                <textarea id="output-text" rows="40" name="output-text" placeholder="Click Me will generate result"
+                <textarea id="output-text" rows="40" name="output-text" placeholder="Click Me to generate result."
                     class="fill"></textarea>
             </div>
         </div>
@@ -75,6 +75,12 @@
                     <option value="\d{7} \d{3}"> 7 SPACE 3 </option>
                     <option value="\d{4} \d{7}"> 4 SPACE 7 (STD) </option>
 
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="input-cleanup">Cleanup</label><br>
+                <select id="input-cleanup" name="cleanup" size="10" class="fill">
+                    <option value="5"> S = 5</option>
                 </select>
             </div>
             <div class="pull-right">
@@ -97,7 +103,7 @@
             <p style="text-align: center"> Copyright &copy;
                 <script>document.write(new Date().getFullYear())</script> Liju Jayakumar, All Rights Reserved.
                 </br>Not for commercial use.
-                </br>v1.0.10
+                </br>v1.0.11
                 </br> <img src="https://www.webfreecounter.com/hit.php?id=gvqkqdo&nd=5&style=2" alt="web counter">
                 <img src="https://www.webfreecounter.com/hit.php?id=grvqkqdq&nd=4&style=2" alt="web counter">
             </p>
