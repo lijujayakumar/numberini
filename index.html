@@ -1,3 +1,6 @@
+<!-- 
+    Copyright 2022 Liju Jayakumar. All Rights Reserved.
+ -->
 <!DOCTYPE html>
 <html>
 
@@ -15,9 +18,6 @@
 
     <!-- Custom styles -->
     <link href="template.css" rel="stylesheet">
-
-
-
 
     <!-- Custom code-->
     <script src="./parser.js"></script>
@@ -38,7 +38,6 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -52,6 +51,8 @@
                 <label for="input-text">Input Text</label><br>
                 <textarea id="input-text" rows="40" name="input-text" placeholder="Please paste input text here."
                     class="fill"></textarea>
+                <input id="fileInput" type="file" name="file" accept=".txt" onchange="handleFileSelect(this)" />
+
             </div>
             <div class="col-md-6">
                 <label for="output-text">Result</label><br>
@@ -84,7 +85,7 @@
                 </select>
             </div>
             <div class="pull-right">
-                <input type="button" class="btn btn-primary" onclick="myFunction()" value="Click Me!">
+                <input type="button" class="btn btn-primary" onclick="parse()" value="Click Me!">
             </div>
         </div>
     </div>
@@ -103,9 +104,8 @@
             <p style="text-align: center"> Copyright &copy;
                 <script>document.write(new Date().getFullYear())</script> Liju Jayakumar, All Rights Reserved.
                 </br>Not for commercial use.
-                </br>v1.0.11
+                </br>v1.0.12
                 </br> <img src="https://www.webfreecounter.com/hit.php?id=gvqkqdo&nd=5&style=2" alt="web counter">
-                <img src="https://www.webfreecounter.com/hit.php?id=grvqkqdq&nd=4&style=2" alt="web counter">
             </p>
         </div>
     </footer>
