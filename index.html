@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
+
     <!-- Custom styles -->
     <link href="template.css" rel="stylesheet">
 
@@ -48,20 +49,32 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <label for="input-text">Input Text</label><br>
+                <label for="input-text">Input Text</label>
+                <br>
                 <textarea id="input-text" rows="40" name="input-text" placeholder="Please paste input text here."
                     class="fill"></textarea>
-                <input id="fileInput" type="file" name="file" accept=".txt" onchange="handleFileSelect(this)" />
-
             </div>
             <div class="col-md-6">
-                <label for="output-text">Result</label><br>
+                <label for="output-text">Result</label>
+                <button id="output-download" type="button" class="btn btn-link pull-right download-btn"
+                    onclick="download()">Download</button>
+                <br>
                 <textarea id="output-text" rows="40" name="output-text" placeholder="Click Me to generate result."
                     class="fill"></textarea>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2">
+                <input id="fileInput" type="file" name="file" accept=".txt" onchange="handleFileSelect(this)" />
+            </div>
+
+            <div class="pull-right buttons">
+                <input type="button" class="btn btn-warning" onclick="clearAll()" value="Clear">
+                <input type="button" class="btn btn-primary" onclick="parse()" value="Click Me!">
+            </div>
+        </div>
+        <div>
+            <div class="col-md-4">
                 <label for="input-patterns">Patterns</label><br>
                 <select id="input-patterns" name="patters" size="10" class="fill">
                     <option value="\d{10}"> 10 DIGITS</option>
@@ -78,14 +91,11 @@
 
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label for="input-cleanup">Cleanup</label><br>
-                <select id="input-cleanup" name="cleanup" size="10" class="fill">
+                <select id="input-cleanup" name="cleanup" size="5" class="fill">
                     <option value="5"> S = 5</option>
                 </select>
-            </div>
-            <div class="pull-right">
-                <input type="button" class="btn btn-primary" onclick="parse()" value="Click Me!">
             </div>
         </div>
     </div>
@@ -104,7 +114,7 @@
             <p style="text-align: center"> Copyright &copy;
                 <script>document.write(new Date().getFullYear())</script> Liju Jayakumar, All Rights Reserved.
                 </br>Not for commercial use.
-                </br>v1.0.12
+                </br>v1.0.13
                 </br> <img src="https://www.webfreecounter.com/hit.php?id=gvqkqdo&nd=5&style=2" alt="web counter">
             </p>
         </div>

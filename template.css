@@ -37,3 +37,12 @@ body {
     width: 100%;
     max-width: 100%;
 }
+
+.buttons {
+    margin-right: 11px;
+}
+
+.download-btn {
+    padding: 0 !important;
+    visibility: hidden;
+}
