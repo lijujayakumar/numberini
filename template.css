@@ -46,3 +46,13 @@ body {
     padding: 0 !important;
     visibility: hidden;
 }
+
+.p-0 {
+    padding: 0%;
+}
+
+.alert {
+    visibility: hidden;
+    position: fixed;
+    right: 5%;
+}
