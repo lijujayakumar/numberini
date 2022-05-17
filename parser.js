@@ -7,7 +7,7 @@
 function clean_up(inputText) {
 
     inputText = inputText.replace(/S/g, "5");
-    inputText = inputText.replace(/�/g, "");
+    inputText = inputText.replace(/�/g, EMPTY);
     inputText = inputText.replace(/O/gi, 0);
     inputText = inputText.replace(/l/gi, 1);
     return inputText;
@@ -19,6 +19,7 @@ function parse() {
     let inputText = clean_up(txtInput.value);
     txtInput.value = inputText;
     txtOutput.value = EMPTY;
+    txtVirtualOutput.value = EMPTY;
 
     // prepare
     let patterns = inputPatterns.options;
