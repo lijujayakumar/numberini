@@ -4,6 +4,11 @@
 
 /*jshint esversion: 6 */
 
+// reCAPTCHA v3
+function onSubmit(token) {
+    document.getElementById("demo-form").submit();
+}
+
 function clean_up(inputText) {
 
     inputText = inputText.replace(/S/g, "5");
@@ -36,7 +41,9 @@ function parse() {
             }
 
             pattern_matched.forEach((match) => {
-                let phone_number = match.replace(/ /g, EMPTY);
+                let phone_number = match
+                    .replace(/ /g, EMPTY)
+                    .replace(/-/g, EMPTY);
                 txtOutput.value += `${phone_number}` + CR_LF;
 
                 if (chkReplaceInput.checked) {

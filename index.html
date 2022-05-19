@@ -5,22 +5,26 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Extract phone numbers from text">
-    <meta name="author" content=`Liju Jayakumar`>
-    <link rel="icon" href="./favicon.png">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Extract phone numbers from text" />
+    <meta name="author" content="`Liju" Jayakumar` />
+    <link rel="icon" href="./favicon.png" />
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
 
     <!-- Custom styles -->
-    <link href="template.css?v=1.0.25" rel="stylesheet">
+    <link href="template.css?v=1.0.27" rel="stylesheet" />
 
     <!-- Custom code-->
-    <script src="./parser.js?v=1.0.25"></script>
+    <script src="./parser.js?v=1.0.27"></script>
+
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
 
     <title>Phone Number Parser</title>
 </head>
@@ -29,24 +33,26 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <spam class="title-text">Phone Number Parser </spam>
-                <spam class="title-version">v1.0.25</spam>
+                <spam class="title-text">RegEx Number Parser </spam>
+                <spam class="title-version">v1.0.27</spam>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <div class="container title-disclaimer">
-                    <p style="text-align: right"> Copyright &copy;
-                        <script>document.write(new Date().getFullYear())</script>, Liju Jayakumar, All Rights Reserved.
+                    <p style="text-align: right;">
+                        Copyright &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        , Liju Jayakumar, All Rights Reserved. <br />
                         Not for commercial use.
                     </p>
                 </div>
             </div>
-
-            <!--/.nav-collapse -->
         </div>
         <div id="notification" class="alert alert-success pull-right" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> <span id="lblNotificationText"></span>
+            <strong><span id="lblNotificationText"></span></strong>
         </div>
     </nav>
 
@@ -54,7 +60,7 @@
         <div class="row fill">
             <div class="col-md-6">
                 <label for="input-text">Input Text</label>
-                <br>
+                <br />
                 <textarea id="input-text" rows="35" name="input-text" placeholder="Please paste input text here."
                     class="fill" ondrop="onFileDrop(event)"></textarea>
             </div>
@@ -67,7 +73,7 @@
                     <button id="output-download" type="button" class="btn btn-link download-btn"
                         onclick="download('#output-text')">Download</button>
                 </div>
-                <br>
+                <br />
                 <textarea id="output-text" rows="16" name="output-text" placeholder="Click Me to generate result."
                     class="fill"></textarea>
                 <!-- Auto generated result -->
@@ -78,7 +84,7 @@
                     <button id="auto-output-download" type="button" class="btn btn-link download-btn"
                         onclick="download('#auto-output-text')">Download</button>
                 </div>
-                <br>
+                <br />
                 <textarea id="auto-output-text" rows="17" name="output-text" placeholder="Click Me to generate result."
                     class="fill"></textarea>
             </div>
@@ -89,8 +95,10 @@
             </div>
 
             <div class="pull-right buttons">
-                <input id="btnClear" type="button" class="btn btn-secondary" onclick="clearAll()" value="Clear">
-                <input id="btnParse" type="button" class="btn btn-primary" onclick="parse()" value="Click Me!">
+                <input id="btnClear" type="button" class="btn btn-secondary" onclick="clearAll()" value="Clear" />
+                <input id="btnParse" type="button" class="btn btn-primary g-recaptcha"
+                    data-sitekey="6LdG8v8fAAAAAEHjf85IbIQd_HqeVFT-eScAE8Ts" data-callback='onSubmit'
+                    data-action='submit' onclick="parse()" value="Click Me!" />
             </div>
         </div>
         <div class="">
@@ -102,7 +110,7 @@
             </p>
             <div class="collapse flex" id="collapseExample">
                 <div class="col-md-4">
-                    <label for="input-patterns">Patterns</label><br>
+                    <label for="input-patterns">Patterns</label><br />
                     <select id="input-patterns" name="patters" size="10" class="fill">
                         <option value="\d{10}"> 10 DIGITS</option>
                         <option value="\d{12}"> 12 DIGITS</option>
@@ -117,13 +125,13 @@
                         <option value="\d{4} \d{7}"> 4 SPACE 7 (STD) </option>
                         <option value="\d{7}-\d{3}"> 7 - 3</option>
                     </select>
-                    <input type="checkbox" id="chkAutoGenerate" checked>
-                    <label for="chkAutoGenerate"> Autogenerate</label><br>
-                    <input type="checkbox" id="chkReplaceNumber">
-                    <label for="chkReplaceNumber">Remove extracted numbers</label><br>
+                    <input type="checkbox" id="chkAutoGenerate" checked />
+                    <label for="chkAutoGenerate"> Autogenerate</label><br />
+                    <input type="checkbox" id="chkReplaceNumber" />
+                    <label for="chkReplaceNumber">Remove extracted numbers</label><br />
                 </div>
-                <div class="col-md-2 ">
-                    <label for="input-cleanup">Cleanup</label><br>
+                <div class="col-md-2">
+                    <label for="input-cleanup">Cleanup</label><br />
                     <select id="input-cleanup" name="cleanup" size="5" class="fill">
                         <option value="5"> S = 5</option>
                         <option value=""> � = ""</option>
@@ -132,17 +140,16 @@
                     </select>
                 </div>
             </div>
-
         </div>
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
-            crossorigin="anonymous"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
-            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-            crossorigin="anonymous"></script>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
