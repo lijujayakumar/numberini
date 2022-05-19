@@ -61,8 +61,9 @@
             <div class="col-md-6">
                 <label for="input-text">Input Text</label>
                 <br />
-                <textarea id="input-text" rows="35" name="input-text" placeholder="Please paste input text here."
-                    class="fill" ondrop="onFileDrop(event)"></textarea>
+                <textarea id="input-text" rows="35" name="input-text"
+                    placeholder="Please paste input text here or drag input file here." class="fill"
+                    ondrop="onFileDrop(event)"></textarea>
             </div>
             <div class="col-md-6">
                 <!-- Result -->
@@ -95,10 +96,11 @@
             </div>
 
             <div class="pull-right buttons">
-                <input id="btnClear" type="button" class="btn btn-secondary" onclick="clearAll()" value="Clear" />
                 <input id="btnParse" type="button" class="btn btn-primary g-recaptcha"
                     data-sitekey="6LdG8v8fAAAAAEHjf85IbIQd_HqeVFT-eScAE8Ts" data-callback='onSubmit'
                     data-action='submit' onclick="parse()" value="Click Me!" />
+                <input id="btnClear" type="button" class="btn btn-secondary" onclick="clearAll()" value="Clear" />
+
             </div>
         </div>
         <div class="">
