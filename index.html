@@ -20,7 +20,9 @@
     <link href="template.css?v=1.0.27" rel="stylesheet" />
 
     <!-- Custom code-->
-    <script src="./parser.js?v=1.0.27"></script>
+    <script src="./scripts/parser.js?v=1.0.27"></script>
+    <script src="./scripts/util.js?v=1.0.27"></script>
+    <script src="./scripts/global.js?v=1.0.27"></script>
 
     <!-- reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -63,7 +65,7 @@
                 <br />
                 <textarea id="input-text" rows="35" name="input-text"
                     placeholder="Please paste input text here or drag input file here." class="fill"
-                    ondrop="onFileDrop(event)"></textarea>
+                    ondrop="onFileDrop(event)" onpaste="onInputPaste()" ></textarea>
             </div>
             <div class="col-md-6">
                 <!-- Result -->
