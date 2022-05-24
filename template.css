@@ -47,7 +47,7 @@ body {
     visibility: hidden;
     position: fixed;
     right: 2%;
-    top:0px;
+    top: 0px;
 }
 
 .title-text {
@@ -62,4 +62,12 @@ body {
 .title-disclaimer {
     /* Set the fixed height of the footer here */
     color: #948989;
+}
+
+#txtIdentifier {
+    margin-left: 10px;
+}
+
+#lblIdentifier {
+    margin-top: 3px;
 }

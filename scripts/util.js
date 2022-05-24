@@ -15,11 +15,8 @@ function onFileDrop(event) {
     readFile(event.dataTransfer.files[0]);
 }
 
-function onInputPaste(){
-    setTimeout(function () {
-        notify("Processing");
-        setTimeout(parse, 500);
-    }, 500);
+function onInputPaste() {
+    process();
 }
 
 function handleFileSelect(event) {
@@ -89,6 +86,20 @@ function notify(message) {
     });
 }
 
-function removeDuplicate(inputArray){
-    return Array.from(new Set(inputArray)).join(CR_LF);
+function removeDuplicate(inputArray) {
+
+    let delimiter = "";
+    if (txtIdentifier.value && txtIdentifier.value.length > 0) {
+        delimiter = SPACE + txtIdentifier.value;
+    }
+    delimiter += CR_LF;
+
+    return Array.from(new Set(inputArray)).join(delimiter) + delimiter;
+}
+
+function process() {
+    setTimeout(function () {
+        notify("Processing");
+        setTimeout(parse, 500);
+    }, 500);
 }
