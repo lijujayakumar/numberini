@@ -66,8 +66,9 @@ body {
 
 #txtIdentifier {
     margin-left: 10px;
+    width: 300px;
 }
 
-#lblIdentifier {
+.align-v-middle {
     margin-top: 3px;
 }

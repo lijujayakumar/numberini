@@ -17,13 +17,13 @@
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
 
     <!-- Custom styles -->
-    <link href="template.css?v=1.0.27" rel="stylesheet" />
+    <link href="template.css?v=1.0.29" rel="stylesheet" />
 
     <!-- Custom code-->
-    <script src="./scripts/parser.js?v=1.0.28"></script>
-    <script src="./scripts/util.js?v=1.0.28"></script>
-    <script src="./scripts/global.js?v=1.0.28"></script>
-    <script src="./scripts/identifiers.js?v=1.0.28"></script>
+    <script src="./scripts/parser.js?v=1.0.29"></script>
+    <script src="./scripts/util.js?v=1.0.29"></script>
+    <script src="./scripts/global.js?v=1.0.29"></script>
+    <script src="./scripts/identifiers.js?v=1.0.29"></script>
 
     <!-- reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="navbar-header">
                 <spam class="title-text">RegEx Number Parser </spam>
-                <spam class="title-version">v1.0.28</spam>
+                <spam class="title-version">v1.0.29</spam>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <div class="container title-disclaimer">
@@ -63,11 +63,11 @@
         <div class="row fill">
             <div class="col-md-6">
                 <div>
-                    <label for="input-text">Input Text</label>
+                    <label class="align-v-middle" for="input-text">Input Text</label>
 
                     <input id="txtIdentifier" class="pull-right" type="text" list="identifierDatalist"
                         onkeypress="onIdentifierChange(event)" oninput="onIdentifierInput(event)" />
-                    <label id="lblIdentifier" class="pull-right" for="txtIdentifier">Identifier: </label>
+                    <label id="lblIdentifier" class="pull-right align-v-middle" for="txtIdentifier">Identifier: </label>
                     <datalist id="identifierDatalist"></datalist>
                 </div>
                 <textarea id="input-text" rows="35" name="input-text"

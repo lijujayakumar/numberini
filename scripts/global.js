@@ -21,4 +21,5 @@ const RESULT = "Result",
     CR_LF = "\r\n",
     DOWNLOAD_FILE_TYPE = "text/plain",
     DOWNLOAD_FILE_NAME = "Numbers",
-    SPACE = " ";
+    SPACE = " ",
+    TAB = "\t";

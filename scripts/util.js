@@ -90,7 +90,7 @@ function removeDuplicate(inputArray) {
 
     let delimiter = "";
     if (txtIdentifier.value && txtIdentifier.value.length > 0) {
-        delimiter = SPACE + txtIdentifier.value;
+        delimiter = SPACE + TAB + txtIdentifier.value;
     }
     delimiter += CR_LF;
 
