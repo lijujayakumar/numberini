@@ -22,4 +22,5 @@ const RESULT = "Result",
     DOWNLOAD_FILE_TYPE = "text/plain",
     DOWNLOAD_FILE_NAME = "Numbers",
     SPACE = " ",
-    TAB = "\t";
+    TAB = "\t",
+    ZERO = "0";

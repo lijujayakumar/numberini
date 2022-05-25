@@ -15,19 +15,35 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
+    `
+    <script>
+        const VERSION_NUMBER = "1.0.30";
 
-    <!-- Custom styles -->
-    <link href="template.css?v=1.0.29" rel="stylesheet" />
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'template.css?v=' + VERSION_NUMBER;
+        document.body.appendChild(link);
 
-    <!-- Custom code-->
-    <script src="./scripts/parser.js?v=1.0.29"></script>
-    <script src="./scripts/util.js?v=1.0.29"></script>
-    <script src="./scripts/global.js?v=1.0.29"></script>
-    <script src="./scripts/identifiers.js?v=1.0.29"></script>
+        const scripts = [
+            './scripts/parser.js',
+            './scripts/util.js',
+            './scripts/global.js',
+            './scripts/identifiers.js',
+        ];
+
+        for (let i = 0; i < scripts.length; i++) {
+            const script = document.createElement('script');
+            script.onerror = function () {
+                alert('Could not load ' + this.src);
+            };
+
+            script.src = scripts[i] + '?v=' + VERSION_NUMBER;
+            document.body.appendChild(script);
+        }
+    </script>
 
     <!-- reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
-
 
     <title>Phone Number Parser</title>
 </head>
@@ -37,7 +53,11 @@
         <div class="container">
             <div class="navbar-header">
                 <spam class="title-text">RegEx Number Parser </spam>
-                <spam class="title-version">v1.0.29</spam>
+                <spam class="title-version">
+                    <script>
+                        document.write(VERSION_NUMBER);
+                    </script>
+                </spam>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <div class="container title-disclaimer">
@@ -72,7 +92,7 @@
                 </div>
                 <textarea id="input-text" rows="35" name="input-text"
                     placeholder="Please paste input text here or drag input file here." class="fill"
-                    ondrop="onFileDrop(event)" onpaste="onInputPaste()"></textarea>
+                    ondrop="onFileDrop(event)" onpaste="onInputPaste()" required></textarea>
             </div>
             <div class="col-md-6">
                 <!-- Result -->

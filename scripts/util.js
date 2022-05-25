@@ -88,7 +88,7 @@ function notify(message) {
 
 function removeDuplicate(inputArray) {
 
-    let delimiter = "";
+    let delimiter = EMPTY;
     if (txtIdentifier.value && txtIdentifier.value.length > 0) {
         delimiter = SPACE + TAB + txtIdentifier.value;
     }

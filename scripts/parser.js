@@ -4,6 +4,8 @@
 
 /*jshint esversion: 6 */
 
+'use strict'
+
 function clean_up(inputText) {
 
     inputText = inputText.replace(/S/g, "5");
@@ -14,6 +16,13 @@ function clean_up(inputText) {
 }
 
 function parse() {
+
+    // validation
+    if (txtInput.value.length === 0) {
+        notify("Please provide Input");
+        return;
+    }
+
 
     // cleanup
     let inputText = clean_up(txtInput.value);
@@ -44,14 +53,23 @@ function parse() {
                     .replace(/ /g, EMPTY)
                     .replace(/-/g, EMPTY);
 
-                result.push(phone_number);
-
-                if (chkReplaceInput.checked) {
-                    txtInput.value = txtInput.value.replace(match, EMPTY);
+                if (phone_number.charAt(0) === ZERO) {
+                    phone_number = phone_number.substring(1);
                 }
 
-                if (chkAutoGenerate.checked) {
-                    autoGenNumbers(phone_number, autoGenResult);
+                if (phone_number.length > 9) {
+
+                    result.push(phone_number);
+
+                    if (chkReplaceInput.checked) {
+                        txtInput.value = txtInput.value.replace(match, EMPTY);
+                    }
+
+                    if (chkAutoGenerate.checked) {
+                        autoGenNumbers(phone_number, autoGenResult);
+                    }
+                } else {
+                    console.log("ignoring " + match + " | " + phone_number);
                 }
             });
         }
