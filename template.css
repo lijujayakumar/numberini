@@ -2,7 +2,6 @@
  * Copyright 2022, Liju Jayakumar. All Rights Reserved.
  */
 body {
-    padding-top: 50px;
     background-color: #fafaf9;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
 }
@@ -21,6 +20,17 @@ html {
 
 body {
     height: 100%;
+    background-image: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.01),
+            rgba(255, 255, 255, 1) 85%),
+        radial-gradient(ellipse at top left,
+            rgba(13, 110, 253, 0.5), transparent 50%),
+        radial-gradient(ellipse at top right,
+            rgba(255, 228, 132, 0.5), transparent 50%),
+        radial-gradient(ellipse at center right,
+            rgba(112.520718, 44.062154, 249.437846, 0.5), transparent 50%),
+        radial-gradient(ellipse at center left,
+            rgba(214, 51, 132, 0.5), transparent 50%);
 }
 
 .fill {
@@ -53,6 +63,7 @@ body {
 .title-text {
     color: #e5d7d7;
     font-size: large;
+    margin-left: 15px
 }
 
 .title-version {
@@ -71,4 +82,31 @@ body {
 
 .align-v-middle {
     margin-top: 3px;
+}
+
+.bg-purple {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, rgba(112.520718, 44.062154, 249.437846, 1),
+            rgba(112.520718, 44.062154, 249.437846, 0.95));
+}
+
+.text-white {
+    --bs-text-opacity: 1;
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+.h6,
+h6 {
+    font-size: large;
+}
+
+input,
+select {
+    background-color: transparent;
+    border: none;
+
+}
+
+textarea {
+    background-color: transparent;
 }

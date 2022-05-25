@@ -9,69 +9,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Extract phone numbers from text" />
-    <meta name="author" content="`Liju" Jayakumar` />
-    <link rel="icon" href="./favicon.png" />
+    <meta name="author" content="Liju Jayakumar" />
+    <link rel=" icon" href="./favicon.png" />
+    <title>Phone Number Parser</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
-    `
+
+    <!-- Link custom resources -->
     <script>
-        const VERSION_NUMBER = "1.0.30";
+        const VERSION_NUMBER = "1.0.34";
 
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = 'template.css?v=' + VERSION_NUMBER;
-        document.body.appendChild(link);
+        document.head.appendChild(link);
 
         const scripts = [
             './scripts/parser.js',
             './scripts/util.js',
             './scripts/global.js',
             './scripts/identifiers.js',
+            './scripts/provider.js'
         ];
 
         for (let i = 0; i < scripts.length; i++) {
             const script = document.createElement('script');
             script.onerror = function () {
-                alert('Could not load ' + this.src);
+                console.error('Could not load ' + this.src);
             };
 
             script.src = scripts[i] + '?v=' + VERSION_NUMBER;
-            document.body.appendChild(script);
+            document.head.appendChild(script);
         }
     </script>
-
-    <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-
-    <title>Phone Number Parser</title>
 </head>
 
 <body onload="initialize()">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <spam class="title-text">RegEx Number Parser </spam>
-                <spam class="title-version">
+    <!-- Header -->
+    <nav class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="title-text" src="favicon.png" width="25px">
+                <span class="text-white h6">RegEx Number Parser </span>
+                <span class="title-version">
                     <script>
-                        document.write(VERSION_NUMBER);
+                        document.write("v" + VERSION_NUMBER);
                     </script>
-                </spam>
+                </span>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <div class="container title-disclaimer">
-                    <p style="text-align: right;">
-                        Copyright &copy;
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        , Liju Jayakumar, All Rights Reserved. <br />
-                        Not for commercial use.
-                    </p>
-                </div>
+            <div class="col-md-6">
+                <span class="pull-right title-version">
+                    Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    , All Rights Reserved. <br />
+                    Not for commercial use.
+                </span>
             </div>
         </div>
+        <!-- Notification -->
         <div id="notification" class="alert alert-success pull-right" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
@@ -81,19 +80,25 @@
 
     <div class="container fill">
         <div class="row fill">
+            <!-- Input -->
             <div class="col-md-6">
-                <div>
-                    <label class="align-v-middle" for="input-text">Input Text</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="align-v-middle" for="input-text">Input Text</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input id="txtIdentifier" class="pull-right" type="text" list="identifierDatalist"
+                            onkeypress="onIdentifierChange(event)" oninput="onIdentifierInput(event)"
+                            placeholder="Identifier" />
 
-                    <input id="txtIdentifier" class="pull-right" type="text" list="identifierDatalist"
-                        onkeypress="onIdentifierChange(event)" oninput="onIdentifierInput(event)" />
-                    <label id="lblIdentifier" class="pull-right align-v-middle" for="txtIdentifier">Identifier: </label>
-                    <datalist id="identifierDatalist"></datalist>
+                        <datalist id="identifierDatalist"></datalist>
+                    </div>
                 </div>
                 <textarea id="input-text" rows="35" name="input-text"
                     placeholder="Please paste input text here or drag input file here." class="fill"
                     ondrop="onFileDrop(event)" onpaste="onInputPaste()" required></textarea>
             </div>
+            <!-- Output -->
             <div class="col-md-6">
                 <!-- Result -->
                 <label id="lblResult" for="output-text">Result</label>
@@ -153,11 +158,13 @@
                         <option value="\d{3} \d{3} \d{4}"> 3 SPACE 3 SPACE 4 </option>
 
                         <option value="\d{7} \d{3}"> 7 SPACE 3 </option>
-                        <option value="\d{4} \d{7}"> 4 SPACE 7 (STD) </option>
                         <option value="\d{7}-\d{3}"> 7 - 3</option>
                     </select>
                     <input type="checkbox" id="chkAutoGenerate" checked />
                     <label for="chkAutoGenerate"> Autogenerate</label><br />
+                    <input type="checkbox" id="chkProvider" checked />
+                    <label for="chkProvider"> Predict Provider Name (Only an approximation due to number
+                        portability)</label><br />
                     <input type="checkbox" id="chkReplaceNumber" />
                     <label for="chkReplaceNumber">Remove extracted numbers</label><br />
                 </div>
@@ -168,6 +175,7 @@
                         <option value=""> � = ""</option>
                         <option value="0"> O = 0</option>
                         <option value="1"> l = 1</option>
+                        <option value="8"> % = 8</option>
                     </select>
                 </div>
             </div>
@@ -181,6 +189,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
         integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
         crossorigin="anonymous"></script>
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script type="text/javascript">
+        console.log('%cHello there!', 'color:green; font-size:15px; -webkit-text-stroke: 1px;');
+        const message = "%cThank you for using this experimental tool v"
+            + VERSION_NUMBER
+            + ". All Rights Reserved. Not for commercial use.";
+        console.log(message, 'color:orange; font-size: 10px;');
+    </script>
 </body>
 
 </html>

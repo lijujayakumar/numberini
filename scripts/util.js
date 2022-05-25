@@ -24,6 +24,7 @@ function handleFileSelect(event) {
 }
 
 function readFile(file) {
+    console.time("readFile");
     const reader = new FileReader();
     reader.onload = afterFileRead;
     reader.readAsText(file);
@@ -34,11 +35,9 @@ function readFile(file) {
 function afterFileRead(event) {
 
     txtInput.value = event.target.result;
+    console.timeEnd("readFile");
 
-    setTimeout(function () {
-        notify("Processing");
-        setTimeout(parse, 500);
-    }, 500);
+    process();
 }
 
 function download(selector) {
@@ -79,6 +78,8 @@ function copy(selector) {
 }
 
 function notify(message) {
+
+    console.warn(message);
     notification.style.visibility = VISIBLE;
     notificationText.innerHTML = message || EMPTY;
     $(".alert").fadeTo(2000, 500).slideUp(500, function () {
@@ -86,15 +87,18 @@ function notify(message) {
     });
 }
 
-function removeDuplicate(inputArray) {
 
-    let delimiter = EMPTY;
-    if (txtIdentifier.value && txtIdentifier.value.length > 0) {
-        delimiter = SPACE + TAB + txtIdentifier.value;
+
+function getProviderName(number) {
+
+    let provider_specific_part = parseInt(number.slice(0, 5));
+
+    for (let [name, starts_with] of PROVIDERS) {
+        if (starts_with.includes(provider_specific_part)) {
+            return SPACE + TAB + name;
+        }
     }
-    delimiter += CR_LF;
-
-    return Array.from(new Set(inputArray)).join(delimiter) + delimiter;
+    return SPACE + TAB;
 }
 
 function process() {
