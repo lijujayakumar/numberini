@@ -80,8 +80,9 @@ body {
     width: 300px;
 }
 
-.align-v-middle {
+.control-title {
     margin-top: 3px;
+    font-weight: bold;
 }
 
 .bg-purple {
@@ -109,4 +110,8 @@ select {
 
 textarea {
     background-color: transparent;
+}
+
+label {
+    font-weight: normal;
 }
