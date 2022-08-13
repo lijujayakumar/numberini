@@ -37,7 +37,7 @@ const patternList = [
   },
   {
     pattern: "\\d{3} \\d{3} \\d{4}",
-    displayText: "D4 SPACE D3 SPACE D3",
+    displayText: "D3 SPACE D3 SPACE D4",
   },
 ];
 
