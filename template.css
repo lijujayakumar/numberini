@@ -115,3 +115,11 @@ textarea {
 label {
     font-weight: normal;
 }
+
+.small-text {
+    font-size: smaller;
+}
+
+.padding-5 {
+    padding-left: 10px;
+}
