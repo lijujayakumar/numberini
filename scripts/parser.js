@@ -76,12 +76,19 @@ function parse() {
 }
 
 function cleanUp(inputText) {
+  inputText = inputText.replaceAll(".","");
+  //inputText = removeSpace(inputText);
+
   cleanupList.forEach(function (item) {
     const pattern = new RegExp(item.originalText, "gi");
     inputText = inputText.replace(pattern, item.replaceText);
   });
 
   return inputText;
+}
+
+function removeSpace(str) {
+   return str.replace(/(\d{2,})\s(\d{1})(?![\r\n])/g, '$1$2');
 }
 
 function generateResult(inputArray) {
@@ -190,7 +197,7 @@ function generateResult(inputArray) {
 }
 
 function setCount(title, control) {
-  return `${title} (${getLength(control)}) Numbers`;
+  return `${title} (${getLength(control)})`;
 }
 
 function getLength(element) {

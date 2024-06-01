@@ -60,6 +60,10 @@ const cleanupList = [
     originalText: "%",
     replaceText: 8,
   },
+  {
+    originalText: "'",
+    replaceText: "",
+  }
 ];
 
 const resultSettings = {
@@ -90,6 +94,11 @@ const testData = [
   "1111567890",
   "1111567890",
   "SOL%�123456",
-  "9895012345"
+  "9895012345",
+  "8921402.83 0",
+  "9,70 47.20094",
+  "9074.5 13270",
+  "9.496501051",
+  "'952690.9535"
  ]
  

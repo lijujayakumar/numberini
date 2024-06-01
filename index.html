@@ -1,226 +1,222 @@
 <!-- 
-    Copyright 2022 Liju Jayakumar. All Rights Reserved.
- -->
+Copyright 2022 Liju Jayakumar. All Rights Reserved.
+-->
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Extract phone numbers from text" />
-    <meta name="author" content="Liju Jayakumar" />
-    <link rel=" icon" href="./favicon.png" />
-    <title>Numberini</title>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="Extract phone numbers from text"/>
+        <meta name="author" content="Liju Jayakumar"/>
+        <link rel=" icon" href="./favicon.png"/>
+        <title>Numberini</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+              integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"/>
 
-    <!-- Link custom resources -->
-    <script>
-        const VERSION_NUMBER = "1.2.1";
+        <!-- Link custom resources -->
+        <script>
+            const VERSION_NUMBER = "1.2.2";
 
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'template.css?v=' + VERSION_NUMBER;
-        document.head.appendChild(link);
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'template.css?v=' + VERSION_NUMBER;
+            document.head.appendChild(link);
 
-        const scripts = [
-            './scripts/config.js',
-            './scripts/parser.js',
-            './scripts/util.js',
-            './scripts/global.js',
-            './scripts/identifiers.js',
-            './scripts/provider.js'
-        ];
+            const scripts = [
+                './scripts/config.js',
+                './scripts/parser.js',
+                './scripts/util.js',
+                './scripts/global.js',
+                './scripts/identifiers.js',
+                './scripts/provider.js'
+            ];
 
-        for (let i = 0; i < scripts.length; i++) {
-            const script = document.createElement('script');
-            script.onerror = function () {
-                console.error('Could not load ' + this.src);
-            };
+            for (let i = 0; i < scripts.length; i++) {
+                const script = document.createElement('script');
+                script.onerror = function () {
+                    console.error('Could not load ' + this.src);
+                };
 
-            script.src = scripts[i] + '?v=' + VERSION_NUMBER;
-            document.head.appendChild(script);
-        }
-    </script>
-</head>
+                script.src = scripts[i] + '?v=' + VERSION_NUMBER;
+                document.head.appendChild(script);
+            }
+        </script>
+    </head>
 
-<body onload="initialize()">
-    <!-- Header -->
-    <nav class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
-        <div class="row">
-            <div class="col-md-6">
-                <img class="title-text" src="favicon.png" width="25px">
-                <span class="text-white h6">Numberini </span>
-                <span class="title-version">
-                    <script>
-                        document.write("v" + VERSION_NUMBER);
-                    </script>
-                </span>
+    <body onload="initialize()">
+        <!-- Header -->
+        <nav class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="title-text" src="favicon.png" width="25px">
+                    <span class="text-white h6">Numberini</span>
+                    <span class="title-version">
+                        <script>
+                            document.write("v" + VERSION_NUMBER);
+                        </script>
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <span class="pull-right title-version">
+                        Copyright &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        , All Rights Reserved. <br/>Not for commercial use.
+                    </span>
+                </div>
             </div>
-            <div class="col-md-6">
-                <span class="pull-right title-version">
-                    Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                    , All Rights Reserved. <br />Not for commercial use.
-                </span>
-            </div>
-        </div>
-        <!-- Notification -->
-        <div id="notification" class="alert alert-success pull-right" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+            <!-- Notification -->
+            <div id="notification" class="alert alert-success pull-right" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
-            <strong><span id="lblNotificationText"></span></strong>
-        </div>
-    </nav>
-
-    <div class="container fill">
-        <div class="row fill">
-            <!-- Input -->
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="control-title" for="input-text">Input Text</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input id="txtIdentifier" class="pull-right" type="text" list="identifierDatalist"
-                            onkeypress="onIdentifierChange(event)" oninput="onIdentifierInput(event)"
-                            placeholder="Identifier" />
-                        <datalist id="identifierDatalist"></datalist>
-                    </div>
-                </div>
-                <textarea id="input-text" rows="35" name="input-text"
-                    placeholder="Please paste input text here or drag input file here." class="fill"
-                    ondrop="onFileDrop(event)" onpaste="onInputPaste()" required></textarea>
+                <strong><span id="lblNotificationText"></span></strong>
             </div>
-            <!-- Output -->
-            <div class="col-md-6">
-                <div class="row">
-                    <!-- Result -->
-                    <label class="control-title" id="lblResult" for="output-text">Result</label>
-                    <div class="pull-right">
+        </nav>
+
+        <div class="container fill">
+            <div class="row fill">
+                <!-- Input -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-title" for="input-text">📝 Input Text</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="txtIdentifier" class="pull-right" type="text" list="identifierDatalist"
+                                   onkeypress="onIdentifierChange(event)" oninput="onIdentifierInput(event)"
+                                   placeholder="Identifier"/>
+                            <datalist id="identifierDatalist"></datalist>
+                        </div>
+                    </div>
+                    <textarea id="input-text" rows="32" name="input-text"
+                              placeholder="Please paste input text here or drag input file here." class="fill"
+                              ondrop="onFileDrop(event)" onpaste="onInputPaste()" required></textarea>
+                </div>
+                <!-- Output -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <!-- Result -->
+                        <label class="control-title" id="lblResult" for="output-text">☎️ Result</label>
+                        <span>&nbsp;</span>
                         <button id="output-copy" type="button" class="btn btn-link download-btn"
-                            onclick="copy('#output-text')">Copy to Clipboard</button>&nbsp;
+                                onclick="copy('#output-text')">📋 Copy</button>&nbsp;
                         <button id="output-download" type="button" class="btn btn-link download-btn"
-                            onclick="download('#output-text')">Download</button>
-                    </div>
-                    <br />
-                    <textarea id="output-text" rows="16" cols="2" name="output-text"
-                        placeholder="Click Me to generate result." class="fill"></textarea>
-                    <!-- Auto generated result -->
-                    <label class="control-title" id="lblAutogenerated" for="auto-output-text">Autogenerated</label>
-                    <div class="pull-right">
+                                onclick="download('#output-text')">⬇️ Download</button>
+                        <br/>
+                        <textarea id="output-text" rows="15" cols="2" name="output-text"
+                                  placeholder="Click Me to generate result." class="fill"></textarea>
+                        <!-- Auto generated result -->
+                        <label class="control-title" id="lblAutogenerated" for="auto-output-text">☎️ Autogenerated</label>
+                        <span>&nbsp;</span>
                         <button id="auto-output-copy" type="button" class="btn btn-link download-btn"
-                            onclick="copy('#auto-output-text')">Copy to Clipboard</button>&nbsp;
+                                onclick="copy('#auto-output-text')">📋 Copy<i class="fas fa-copy"></i> </button>&nbsp;
                         <button id="auto-output-download" type="button" class="btn btn-link download-btn"
-                            onclick="download('#auto-output-text')">Download</button>
+                                onclick="download('#auto-output-text')">⬇️ Download</button>
+                        <br/>
+                        <textarea id="auto-output-text" rows="15" cols="2" name="output-text"
+                                  placeholder="Click Me to generate result." class="fill"></textarea>
                     </div>
-                    <br />
-                    <textarea id="auto-output-text" rows="17" cols="2" name="output-text"
-                        placeholder="Click Me to generate result." class="fill"></textarea>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <input id="fileInput" type="file" name="file" accept=".txt" onchange="handleFileSelect(this)" />
-            </div>
-            <div class="pull-right buttons">
-                <input id="btnParse" type="button" class="btn btn-primary g-recaptcha"
-                    data-sitekey="6LdG8v8fAAAAAEHjf85IbIQd_HqeVFT-eScAE8Ts" data-callback='onSubmit'
-                    data-action='submit' onclick="process()" value="Click Me!" />
-                <input id="btnClear" type="button" class="btn btn-secondary" onclick="clearAll()" value="Clear" />
-            </div>
-        </div>
-        <div class="">
-            <p>
-                <a class="btn btn-warning" data-toggle="collapse" href="#collapseSettings" role="button"
-                    aria-expanded="false" aria-controls="collapseSettings">
-                    Settings
-                </a>
-                <a class="btn btn-success" role="button" onclick="showTestData()">
-                    Test Data
-                </a>
-                <a class="btn btn-link" data-toggle="collapse" href="#collapseLogs" role="button" aria-expanded="false"
-                    aria-controls="collapseLogs">
-                    Logs
-                </a>
-            </p>
-            <div class="collapse flex" id="collapseSettings">
-                <div class="col-md-3">
-                    <label class="control-title" for="input-patterns">Patterns</label><br />
-                    <select id="input-patterns" name="patters" size="20" class="fill small-text">
-                    </select>
-                </div>
+            <div class="row">
                 <div class="col-md-2">
-                    <label class="control-title" for="input-cleanup">Cleanup</label><br />
-                    <select id="input-cleanup" name="cleanup" size="5" class="fill small-text">
-                    </select>
+                    <input id="fileInput" type="file" name="file" accept=".txt" onchange="handleFileSelect(this)"/>
                 </div>
-                <div class="col-md-4">
-                    <label class="control-title" for="input-patterns">Results Settings</label><br />
-                    <div class="padding-5">
-                        <input type="checkbox" id="chkAutoGenerate" />
-                        <label for="chkAutoGenerate"> Autogenerate last </label>
-                        <input type="number" id="txtAutoGenerateDigits" style="width: 28px;" />
-                        <label for="txtAutoGenerateDigits">digits</label><br />
-
-                        <input type="checkbox" id="chkProvider" />
-                        <label for="chkProvider"> Try predict provider name</label><br />
-
-                        <input type="checkbox" id="chkRemoveDuplicate" />
-                        <label for="chkRemoveDuplicate"> Remove Duplicate Numbers</label><br />
-
-                        <input type="checkbox" id="chkRemoveDuplicateWithCountryCode" />
-                        <label for="chkRemoveDuplicateWithCountryCode"> Remove Duplicate Numbers with
-                            CountryCode</label><br />
-                    </div>
-                    <label class="control-title" for="input-patterns">Unique Number Enforcement</label><br />
-                    <div class="padding-5">
-                        <input type="checkbox" id="chkUniqueNumberEnforcement" />
-                        <label for="chkUniqueNumberEnforcement"> Atleast </label>
-                        <input type="number" id="txtUniqueNumberThreshold" style="width: 28px;" />
-                        <label for="chkUniqueNumberEnforcement">digits has to be Unique in the first </label>
-                        <input type="number" id="txtUniqueNumberRange" style="width: 28px;" />
-                        <label for="chkUniqueNumberEnforcement">digits</label><br />
-                    </div>
-
-                    <label class="control-title" for="input-patterns">Other Settings</label><br />
-                    <div class="padding-5">
-                        <input type="checkbox" id="chkReplaceNumber" />
-                        <label for="chkReplaceNumber">Remove Results from Input</label><br />
-                    </div>
+                <div class="pull-right buttons">
+                    <input id="btnParse" type="button" class="btn btn-primary g-recaptcha"
+                           data-sitekey="6LdG8v8fAAAAAEHjf85IbIQd_HqeVFT-eScAE8Ts" data-callback='onSubmit'
+                           data-action='submit' onclick="process()" value="⚡ Click Me!"/>
+                    <input id="btnClear" type="button" class="btn btn-secondary" onclick="clearAll()" value="❌ Clear"/>
                 </div>
             </div>
+            <div class="">
+                <p>
+                    <a class="btn btn-warning" data-toggle="collapse" href="#collapseSettings" role="button"
+                       aria-expanded="false" aria-controls="collapseSettings">
+                        ⚙️ Settings
+                    </a>
+                    <a class="btn btn-success" role="button" onclick="showTestData()">
+                        ℹ️ Test Data
+                    </a>
+                    <a class="btn btn-link" data-toggle="collapse" href="#collapseLogs" role="button" aria-expanded="false"
+                       aria-controls="collapseLogs">
+                        📄 Logs
+                    </a>
+                </p>
+                <div class="collapse flex" id="collapseSettings">
+                    <div class="col-md-3">
+                        <label class="control-title" for="input-patterns">Patterns</label><br/>
+                        <select id="input-patterns" name="patters" size="20" class="fill small-text">
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-title" for="input-cleanup">Cleanup</label><br/>
+                        <select id="input-cleanup" name="cleanup" size="5" class="fill small-text">
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-title" for="input-patterns">Results Settings</label><br/>
+                        <div class="padding-5">
+                            <input type="checkbox" id="chkAutoGenerate"/>
+                            <label for="chkAutoGenerate">Autogenerate last</label>
+                            <input type="number" id="txtAutoGenerateDigits" style="width: 28px;"/>
+                            <label for="txtAutoGenerateDigits">digits</label><br/>
 
-            <div class="collapse flex" id="collapseLogs">
-                <textarea id="txtLogs" rows="10" cols="1" name="txtLogs" placeholder="Log comes here."
-                    class="fill"></textarea>
+                            <input type="checkbox" id="chkProvider"/>
+                            <label for="chkProvider">Try predict provider name</label><br/>
+
+                            <input type="checkbox" id="chkRemoveDuplicate"/>
+                            <label for="chkRemoveDuplicate">Remove Duplicate Numbers</label><br/>
+
+                            <input type="checkbox" id="chkRemoveDuplicateWithCountryCode"/>
+                            <label for="chkRemoveDuplicateWithCountryCode">Remove Duplicate Numbers with
+                                CountryCode</label><br/>
+                        </div>
+                        <label class="control-title" for="input-patterns">Unique Number Enforcement</label><br/>
+                        <div class="padding-5">
+                            <input type="checkbox" id="chkUniqueNumberEnforcement"/>
+                            <label for="chkUniqueNumberEnforcement">Atleast</label>
+                            <input type="number" id="txtUniqueNumberThreshold" style="width: 28px;"/>
+                            <label for="chkUniqueNumberEnforcement">digits has to be Unique in the first</label>
+                            <input type="number" id="txtUniqueNumberRange" style="width: 28px;"/>
+                            <label for="chkUniqueNumberEnforcement">digits</label><br/>
+                        </div>
+
+                        <label class="control-title" for="input-patterns">Other Settings</label><br/>
+                        <div class="padding-5">
+                            <input type="checkbox" id="chkReplaceNumber"/>
+                            <label for="chkReplaceNumber">Remove Results from Input</label><br/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse flex" id="collapseLogs">
+                    <textarea id="txtLogs" rows="10" cols="1" name="txtLogs" placeholder="Log comes here."
+                              class="fill"></textarea>
+                </div>
+
             </div>
-
         </div>
-    </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
-        crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-        crossorigin="anonymous"></script>
-    <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <script type="text/javascript">
-        console.log('%cHello there!', 'color:green; font-size:15px; -webkit-text-stroke: 1px;');
-        const message = "%cThank you for using this experimental tool v"
-            + VERSION_NUMBER
-            + ". All Rights Reserved. Not for commercial use.";
-        console.log(message, 'color:orange; font-size: 10px;');
-    </script>
-</body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+                integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+                crossorigin="anonymous"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+                crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            console.log('%cHello there!', 'color:green; font-size:15px; -webkit-text-stroke: 1px;');
+            const message = "%cThank you for using this experimental tool v"
+                + VERSION_NUMBER
+                + ". All Rights Reserved. Not for commercial use.";
+            console.log(message, 'color:orange; font-size: 10px;');
+        </script>
+    </body>
 
 </html>
